@@ -1,9 +1,8 @@
 import QueryString from 'query-string';
 import React, { useRef } from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import { View, ActivityIndicator, Platform } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { NativeModules } from 'react-native';
-import html from './html/index.html';
 const { AuthingRnSdk } = NativeModules;
 
 const Guard = ({
@@ -98,11 +97,13 @@ const Guard = ({
 		}
 	}
 
+	const source = Platform.select({ android: { uri: 'file:///android_asset/html/index.html' }, ios: require('./html/index.html') });
+
 	return (
 		<View style={{ flex: 1, flexDirection: 'column' }}>
 			<WebView
 				ref={guardRef}
-				source={html}
+				source={source}
 				originWhitelist={['*']}
 				renderLoading={
 					<ActivityIndicator
