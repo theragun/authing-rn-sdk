@@ -97,7 +97,10 @@ const Guard = ({
 		}
 	}
 
-	const source = Platform.select({ android: { uri: 'file:///android_asset/html/index.html' }, ios: require('./html/index.html') });
+	const source = Platform.select({
+		android: { uri: 'file:///android_asset/html/index.html', baseUrl: 'file:///android_asset/html' },
+		ios: require('./html/index.html'),
+	});
 
 	return (
 		<View style={{ flex: 1, flexDirection: 'column' }}>
